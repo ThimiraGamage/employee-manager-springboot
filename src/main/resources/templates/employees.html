@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Employee Management System</h1>
+    <p>Add and manage employee records</p>
+
+    <div class="success" th:if="${success}"
+         th:text="${success}"></div>
+
+    <h2>Add New Employee</h2>
+
+    <form th:action="@{/employees}"
+          th:object="${employee}" method="post">
+
+        <label>Full Name</label>
+        <input type="text" th:field="*{fullName}">
+        <small th:errors="*{fullName}"></small>
+
+        <label>Email</label>
+        <input type="text" th:field="*{email}">
+        <small th:errors="*{email}"></small>
+
+        <label>Phone</label>
+        <input type="text" th:field="*{phone}">
+        <small th:errors="*{phone}"></small>
+
+        <label>Department</label>
+        <input type="text" th:field="*{department}">
+        <small th:errors="*{department}"></small>
+
+        <label>Salary</label>
+        <input type="number" step="0.01"
+               th:field="*{salary}">
+        <small th:errors="*{salary}"></small>
+
+        <button type="submit">Save Employee</button>
+    </form>
+
+    <h2>Employee List</h2>
+    <p>Total employees:
+        <span th:text="${#lists.size(employees)}"></span>
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="emp : ${employees}">
+            <td th:text="${emp.id}"></td>
+            <td th:text="${emp.fullName}"></td>
+            <td th:text="${emp.email}"></td>
+            <td th:text="${emp.phone}"></td>
+            <td th:text="${emp.department}"></td>
+            <td th:text="${emp.salary}"></td>
+            <td>
+                <a th:href="@{/employees/{id}/edit(id=${emp.id})}">
+                    Edit
+                </a>
+                <form class="inline"
+                      th:action="@{/employees/{id}/delete(id=${emp.id})}"
+                      method="post"
+                      onsubmit="return confirm('Delete this employee?')">
+                    <button class="delete" type="submit">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

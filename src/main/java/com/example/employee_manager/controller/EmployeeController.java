@@ -1,8 +1,8 @@
 
-package com.example.employeemanager.controller;
+package com.example.employee_manager.controller;
 
-import com.example.employeemanager.model.Employee;
-import com.example.employeemanager.service.EmployeeService;
+import com.example.employee_manager.model.Employee;
+import com.example.employee_manager.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
